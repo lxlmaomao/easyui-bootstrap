@@ -1,5 +1,4 @@
 $(function(){
-	
 	// === Sidebar navigation === //
 	
 	$('.submenu > a').click(function(e)
@@ -47,6 +46,13 @@ $(function(){
 			ul.slideDown(250);
 		}
 	});
-	// select the active submenu
-	$('.submenu.active a').click();
+	$('[data-toggle="sidebar"]').on("click","ul>li>a",function(){
+		var $this = $(this);
+		var url   = $this.attr("href");
+		var title = $this.text();
+		$("#breadcrumb .current").remove();
+		$("<a>",{class:"current",href:url}).text(title).appendTo("#breadcrumb");
+		$("#container").load(url);
+		return false;
+	});
 });
